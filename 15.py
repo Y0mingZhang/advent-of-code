@@ -13,9 +13,9 @@ def heuristic(x, y):
 
 def total_risk(grid):
     visited = set()
-    heap = [(0, 0, 0)]
+    heap = [(0, 0, 0, 0)]
     while heap:
-        curr_cost, x, y = heappop(heap)
+        _, curr_cost, x, y = heappop(heap)
         # print(min_cost, curr_cost, x, y)
         if (x, y) not in visited:
             visited.add((x, y))
@@ -27,7 +27,7 @@ def total_risk(grid):
             if 0 <= x+dx < len(grid) and 0 <= y+dy < len(grid[0]) and (x+dx, y+dy) not in visited:
                 c = curr_cost+grid[x+dx][y+dy]
                 mc = heuristic(x+dx, y+dy) + c
-                heappush(heap, (c, x+dx, y+dy))
+                heappush(heap, (mc, c, x+dx, y+dy))
 
 print(total_risk(grid))
 
