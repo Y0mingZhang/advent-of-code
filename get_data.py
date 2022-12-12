@@ -3,7 +3,7 @@ from os.path import join, dirname, exists
 import requests
 from typing import List
 
-# Get your input automatically!
+
 def get_input(date: int) -> List[str]:
     script_dir = dirname(__file__)
     data_dir = join(script_dir, "data")
@@ -22,7 +22,13 @@ def get_input(date: int) -> List[str]:
     )
     
     data = response.content.decode().strip()
+    if data.startswith("Please don't"):
+        return None
+    
     with open(script_path, 'w') as f:
         f.write(data)
     
     return data.split('\n')
+
+for date in range(1, 26):
+    get_input(date)
